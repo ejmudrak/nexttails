@@ -1,7 +1,16 @@
-import { recipes } from '@/app/page';
+import { unitsMap } from '@/lib/constants';
+import prisma from '@/lib/prisma';
+import { Unit } from '@prisma/client';
 
-export default function Recipes({ params }: { params: { id: string } }) {
-  const recipe = recipes.find((r) => r.id?.toString() === params.id);
+export default async function Recipes({ params }: { params: { id: string } }) {
+  const recipe = await prisma.recipe.findFirst({
+    where: { id: parseInt(params.id) },
+    include: {
+      ingredients: true,
+      steps: true,
+      glass: true,
+    },
+  });
 
   return (
     <div className='z-10 w-full max-w-xl px-5 xl:px-0'>
@@ -11,10 +20,12 @@ export default function Recipes({ params }: { params: { id: string } }) {
       <p className='pt-4 text-xl font-semibold'>Ingredients</p>
       <ul className='list-inside list-disc'>
         {recipe?.ingredients.map((ingredient) => (
-          <li key={ingredient.name} className='flex flex-row justify-between'>
+          <li key={ingredient.id} className='flex flex-row justify-between'>
             <span>{ingredient.name}</span>
+
             <span>
-              {ingredient.amount} {ingredient.unit}
+              {ingredient.amount}{' '}
+              {getUnitLabel(ingredient.amount, ingredient.unit)}
             </span>
           </li>
         ))}
@@ -23,9 +34,16 @@ export default function Recipes({ params }: { params: { id: string } }) {
       <p className='pt-4 text-xl font-semibold'>How To Make It</p>
       <ol className='list-inside list-decimal'>
         {recipe?.steps.map((step) => (
-          <li key={step}>{step}</li>
+          <li key={step.id}>{step.description}</li>
         ))}
       </ol>
     </div>
   );
 }
+
+const getUnitLabel = (amount: number, unit: Unit) => {
+  let label = unitsMap[unit].name;
+
+  // makes units plural
+  return amount > 1 ? label + unitsMap[unit].plural : label;
+};
