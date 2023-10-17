@@ -1,15 +1,17 @@
 import prisma from '@/lib/prisma';
 
-export default async function Home() {
-  const recipes = await prisma.recipe.findMany({
+const getRecipes = async () => {
+  return await prisma.recipe.findMany({
     include: {
       glass: true,
       steps: true,
       ingredients: true,
     },
   });
+};
 
-  console.log('recipes: ', recipes);
+export default async function Home() {
+  const recipes = await getRecipes();
 
   return (
     <>

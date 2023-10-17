@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "next lint",
     "migrate": "npx prisma migrate dev --name",
+    "reset": "npx prisma migrate reset",
     "seed": "npx ts-node prisma/seeds/index.ts",
     "query": "npx ts-node prisma/queries/index.ts"
   },

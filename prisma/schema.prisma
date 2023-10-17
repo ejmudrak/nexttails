@@ -21,13 +21,29 @@ enum Unit {
   TEASPOON
 }
 
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model Tool {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  recipeId    Int
+  recipe      Recipe?  @relation(fields: [recipeId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Glass {
   id          Int      @id @default(autoincrement())
   name        String   @unique @db.VarChar(255)
   description String?
+  recipe      Recipe[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  recipe      Recipe[]
 }
 
 model Step {
@@ -56,6 +72,9 @@ model Recipe {
   id          Int          @id @default(autoincrement())
   name        String       @unique @db.VarChar(255)
   description String
+  image       String?      @db.VarChar(255)
+  difficulty  Difficulty
+  tools       Tool[]
   steps       Step[]
   ingredients Ingredient[]
   createdAt   DateTime     @default(now())

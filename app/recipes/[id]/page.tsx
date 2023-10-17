@@ -1,19 +1,27 @@
 import { unitsMap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
 import { Unit } from '@prisma/client';
+import Image from 'next/image';
 
-export default async function Recipes({ params }: { params: { id: string } }) {
-  const recipe = await prisma.recipe.findFirst({
-    where: { id: parseInt(params.id) },
+const getRecipe = async (recipeId: string) => {
+  return await prisma.recipe.findFirst({
+    where: { id: parseInt(recipeId) },
     include: {
       ingredients: true,
       steps: true,
       glass: true,
     },
   });
+};
+
+export default async function Recipes({ params }: { params: { id: string } }) {
+  const recipe = await getRecipe(params.id);
 
   return (
     <div className='z-10 w-full max-w-xl px-5 xl:px-0'>
+      {recipe?.image && (
+        <Image alt='cocktail' src={recipe.image} width={200} height={200} />
+      )}
       <p className='text-3xl font-bold'>{recipe?.name}</p>
       <p className='pt-2'>{recipe?.description}</p>
 
