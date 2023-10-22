@@ -1,3 +1,4 @@
+import Card from '@/components/home/card';
 import prisma from '@/lib/prisma';
 
 const getRecipes = async () => {
@@ -15,15 +16,18 @@ export default async function Home() {
 
   return (
     <>
-      <div className='z-10 w-full max-w-xl px-5 xl:px-0'>
-        <p className='text-2xl font-semibold'>Home</p>
-        <ul>
+      <div className='z-10 w-full max-w-xl'>
+        <div className='flex flex-row flex-wrap gap-5 p-6'>
           {recipes.map((recipe: any) => (
-            <li key={recipe.id}>
-              <a href={`recipes/${recipe.id}`}>{recipe.name}</a>
-            </li>
+            <a key={recipe.id} href={`recipes/${recipe.id}`}>
+              <Card
+                title={recipe.name}
+                description={'Description'}
+                image={recipe.image}
+              />
+            </a>
           ))}
-        </ul>
+        </div>
       </div>
     </>
   );

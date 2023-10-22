@@ -1,52 +1,33 @@
-import { ReactNode } from "react";
-import ReactMarkdown from "react-markdown";
+import Image from 'next/image';
 
 export default function Card({
   title,
   description,
-  demo,
-  large,
+  image,
 }: {
   title: string;
   description: string;
-  demo: ReactNode;
-  large?: boolean;
+  image: any;
 }) {
   return (
-    <div
-      className={`relative col-span-1 h-96 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-md ${
-        large ? "md:col-span-2" : ""
-      }`}
-    >
-      <div className="flex h-60 items-center justify-center">{demo}</div>
-      <div className="mx-auto max-w-md text-center">
-        <h2 className="bg-gradient-to-br from-black to-stone-500 bg-clip-text font-display text-xl font-bold text-transparent [text-wrap:balance] md:text-3xl md:font-normal">
-          {title}
-        </h2>
-        <div className="prose-sm mt-3 leading-normal text-gray-500 [text-wrap:balance] md:prose">
-          <ReactMarkdown
-            components={{
-              a: ({ node, ...props }) => (
-                <a
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  {...props}
-                  className="font-medium text-gray-800 underline transition-colors"
-                />
-              ),
-              code: ({ node, ...props }) => (
-                <code
-                  {...props}
-                  // @ts-ignore (to fix "Received `true` for a non-boolean attribute `inline`." warning)
-                  inline="true"
-                  className="rounded-sm bg-gray-100 px-1 py-0.5 font-mono font-medium text-gray-800"
-                />
-              ),
-            }}
-          >
-            {description}
-          </ReactMarkdown>
-        </div>
+    <div className='flex flex-col gap-2'>
+      <div className='align-center relative flex h-40 w-40 justify-center overflow-hidden rounded-3xl bg-slate-100 p-5'>
+        <div className='absolute left-[-24px] top-14 h-[320px] w-[320px] overflow-hidden rounded-full bg-blue-200' />
+
+        {image && (
+          <Image
+            alt='cocktail'
+            src={`/${image}`}
+            width={120}
+            height={120}
+            className='z-10'
+          />
+        )}
+      </div>
+
+      <div className='pl-4'>
+        <p className='font-xs font-medium'>{title}</p>
+        <p className='font-xs font-regular text-slate-500'>{description}</p>
       </div>
     </div>
   );

@@ -20,7 +20,12 @@ export default async function Recipes({ params }: { params: { id: string } }) {
   return (
     <div className='z-10 w-full max-w-xl px-5 xl:px-0'>
       {recipe?.image && (
-        <Image alt='cocktail' src={recipe.image} width={200} height={200} />
+        <Image
+          alt='cocktail'
+          src={`/${recipe.image}`}
+          width={200}
+          height={200}
+        />
       )}
       <p className='text-3xl font-bold'>{recipe?.name}</p>
       <p className='pt-2'>{recipe?.description}</p>
