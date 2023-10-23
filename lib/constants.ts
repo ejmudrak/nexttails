@@ -40,3 +40,9 @@ export const unitsMap: Record<Unit, UnitMapRecord> = {
     plural: '',
   },
 };
+
+export const difficultyMap = {
+  EASY: 'Easy',
+  MEDIUM: 'Medium',
+  HARD: 'Hard',
+};

@@ -12,7 +12,8 @@
     "migrate": "npx prisma migrate dev --name",
     "reset": "npx prisma migrate reset",
     "seed": "npx ts-node prisma/seeds/index.ts",
-    "query": "npx ts-node prisma/queries/index.ts"
+    "query": "npx ts-node prisma/queries/index.ts",
+    "clear": "npx ts-node prisma/queries/clear.ts"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",

@@ -1,18 +1,23 @@
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 
-export default function Card({
-  title,
-  description,
-  image,
-}: {
+export interface CardProps {
   title: string;
   description: string;
-  image: any;
-}) {
+  image: string | null;
+  color: string;
+}
+
+export default function Card({ title, description, image, color }: CardProps) {
   return (
     <div className='flex flex-col gap-2'>
       <div className='align-center relative flex h-40 w-40 justify-center overflow-hidden rounded-3xl bg-slate-100 p-5'>
-        <div className='absolute left-[-24px] top-14 h-[320px] w-[320px] overflow-hidden rounded-full bg-blue-200' />
+        <div
+          className={`absolute left-[-24px] top-14 h-[320px] w-[320px] overflow-hidden rounded-full`}
+          style={{
+            backgroundColor: color,
+          }}
+        />
 
         {image && (
           <Image

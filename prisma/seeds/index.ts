@@ -55,8 +55,9 @@ async function main() {
     data: {
       name: 'Old Fashioned',
       description: '',
-      difficulty: 'EASY',
       image: 'old-fashioned.png',
+      color: '#DD845E',
+      difficulty: 'EASY',
       steps: {
         create: [
           { description: 'Add bourbon, bitters, and simple syrup to glass' },
@@ -85,6 +86,7 @@ async function main() {
       description: '',
       difficulty: 'EASY',
       image: 'sidecar.png',
+      color: '#FAC475',
       tools: {
         create: [
           {
@@ -123,6 +125,7 @@ async function main() {
       description: '',
       difficulty: 'EASY',
       image: 'negroni.png',
+      color: '#EE5F5F',
       tools: {
         create: [
           {
@@ -153,6 +156,32 @@ async function main() {
         ],
       },
       glassId: 3,
+    },
+  });
+
+  await prisma.recipe.create({
+    data: {
+      name: 'Gin & Tonic',
+      description: '',
+      image: 'gin-and-tonic.png',
+      color: '#86E5AC',
+      difficulty: 'EASY',
+      steps: {
+        create: [
+          { description: 'Fill a highball glass with ice, then add gin' },
+          { description: 'Top glass with tonic water' },
+          { description: 'Gently stir to mix' },
+          { description: 'Garnish with lime wheels or wedges' },
+        ],
+      },
+      ingredients: {
+        create: [
+          { name: 'Gin', amount: 2, unit: 'OUNCE' },
+          { name: 'Tonic water', amount: 4, unit: 'OUNCE' },
+          { name: 'Lime wheel', amount: 2, unit: 'NONE' },
+        ],
+      },
+      glassId: 5,
     },
   });
 }

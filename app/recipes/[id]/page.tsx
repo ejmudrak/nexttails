@@ -1,7 +1,11 @@
-import { unitsMap } from '@/lib/constants';
+import BackButton from '@/components/layout/back-button';
+import Header from '@/components/recipe/header';
+import Ingredients from '@/components/recipe/ingredients';
+import OutlinedCard from '@/components/recipe/outlined-card';
+import Steps from '@/components/recipe/steps';
+import Tools from '@/components/recipe/tools';
+import { difficultyMap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
-import { Unit } from '@prisma/client';
-import Image from 'next/image';
 
 const getRecipe = async (recipeId: string) => {
   return await prisma.recipe.findFirst({
@@ -10,6 +14,7 @@ const getRecipe = async (recipeId: string) => {
       ingredients: true,
       steps: true,
       glass: true,
+      tools: true,
     },
   });
 };
@@ -18,45 +23,32 @@ export default async function Recipes({ params }: { params: { id: string } }) {
   const recipe = await getRecipe(params.id);
 
   return (
-    <div className='z-10 w-full max-w-xl px-5 xl:px-0'>
-      {recipe?.image && (
-        <Image
-          alt='cocktail'
-          src={`/${recipe.image}`}
-          width={200}
-          height={200}
-        />
+    <div className='w-full max-w-xl overflow-y-auto overflow-x-hidden pt-8 md:pt-16'>
+      <BackButton href='/' />
+
+      {recipe && (
+        <>
+          {recipe.image && <Header image={recipe.image} color={recipe.color} />}
+
+          <div className='relative h-32 rounded-t-[48px] bg-slate-100 px-12 py-4'>
+            <p className='text-2xl font-semibold'>{recipe?.name}</p>
+          </div>
+
+          <div className='relative top-[-68px] rounded-t-[48px] bg-white px-12 pb-[200px] pt-6'>
+            <div className='flex flex-row items-center gap-4'>
+              <OutlinedCard title='Glass' label={recipe.glass.name} />
+              <OutlinedCard
+                title='Difficulty'
+                label={difficultyMap[recipe.difficulty]}
+              />
+            </div>
+
+            <Ingredients ingredients={recipe.ingredients} />
+            {recipe?.tools.length > 0 && <Tools tools={recipe.tools} />}
+            <Steps steps={recipe.steps} />
+          </div>
+        </>
       )}
-      <p className='text-3xl font-bold'>{recipe?.name}</p>
-      <p className='pt-2'>{recipe?.description}</p>
-
-      <p className='pt-4 text-xl font-semibold'>Ingredients</p>
-      <ul className='list-inside list-disc'>
-        {recipe?.ingredients.map((ingredient) => (
-          <li key={ingredient.id} className='flex flex-row justify-between'>
-            <span>{ingredient.name}</span>
-
-            <span>
-              {ingredient.amount}{' '}
-              {getUnitLabel(ingredient.amount, ingredient.unit)}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <p className='pt-4 text-xl font-semibold'>How To Make It</p>
-      <ol className='list-inside list-decimal'>
-        {recipe?.steps.map((step) => (
-          <li key={step.id}>{step.description}</li>
-        ))}
-      </ol>
     </div>
   );
 }
-
-const getUnitLabel = (amount: number, unit: Unit) => {
-  let label = unitsMap[unit].name;
-
-  // makes units plural
-  return amount > 1 ? label + unitsMap[unit].plural : label;
-};
