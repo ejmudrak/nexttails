@@ -76,6 +76,9 @@ async function main() {
           { name: 'Orange Twist', amount: 1, unit: 'NONE' },
         ],
       },
+      tags: {
+        create: [{ name: 'bourbon' }, { name: 'whiskey' }],
+      },
       glassId: 3,
     },
   });

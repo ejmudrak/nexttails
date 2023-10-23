@@ -27,12 +27,23 @@ enum Difficulty {
   HARD
 }
 
+model Tag {
+  id       Int    @id @default(autoincrement())
+  name     String @db.VarChar(255)
+  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+
+  @@unique([name, recipeId])
+}
+
 model Tool {
   id          Int     @id @default(autoincrement())
-  name        String
+  name        String  @db.VarChar(255)
   description String?
   recipeId    Int
   recipe      Recipe? @relation(fields: [recipeId], references: [id])
+
+  @@unique([name, recipeId])
 }
 
 model Glass {
@@ -65,9 +76,10 @@ model Recipe {
   name        String       @unique @db.VarChar(255)
   description String
   image       String?      @db.VarChar(255)
-  color       String       @default("#A5D4FF") @db.VarChar(255)
+  color       String       @default("#A5D4FF") @db.Char(7)
   difficulty  Difficulty
   tools       Tool[]
+  tags        Tag[]
   steps       Step[]
   ingredients Ingredient[]
   glass       Glass        @relation(fields: [glassId], references: [id])
