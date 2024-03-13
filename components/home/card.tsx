@@ -30,7 +30,7 @@ export default function Card({ title, description, image, color }: CardProps) {
       </div>
 
       <div className='pl-4'>
-        <p className='font-xs font-medium'>{title}</p>
+        <p className='font-xs font-semibold'>{title}</p>
         <p className='font-xs font-regular text-slate-500'>{description}</p>
       </div>
     </div>
