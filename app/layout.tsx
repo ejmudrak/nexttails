@@ -1,6 +1,6 @@
 import './globals.css';
 import classNames from 'classnames';
-import { sfPro, inter } from './fonts';
+import { ibmPlexSerif } from './fonts';
 
 export const metadata = {
   title: 'NextTails',
@@ -15,7 +15,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={classNames(sfPro.variable, inter.variable)}>
+      <body className={ibmPlexSerif.className}>
         <div className='fixed h-screen w-full bg-white' />
 
         <main className='flex min-h-screen w-full flex-col items-center pt-8'>

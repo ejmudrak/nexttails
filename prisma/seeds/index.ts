@@ -7,7 +7,7 @@ async function main() {
   await prisma.glass.createMany({
     data: [
       {
-        name: 'Cocktail',
+        name: 'Martini',
         description: '',
       },
       {
@@ -19,12 +19,16 @@ async function main() {
         description: '',
       },
       {
+        name: 'Lowball',
+        description: '',
+      },
+      {
         name: 'Pint',
         description: '',
       },
       {
         name: 'Highball',
-        description: '',
+        description: 'or, Collins',
       },
       {
         name: 'Margarita',
@@ -44,6 +48,10 @@ async function main() {
       },
       {
         name: 'Hurricane',
+        description: '',
+      },
+      {
+        name: 'Coupe',
         description: '',
       },
     ],
@@ -77,7 +85,14 @@ async function main() {
         ],
       },
       tags: {
-        create: [{ name: 'bourbon' }, { name: 'whiskey' }],
+        create: [
+          { name: 'Bourbon' },
+          { name: 'Rich' },
+          { name: 'Dark' },
+          { name: 'Boozy' },
+          { name: 'Caramel' },
+          { name: 'Baking Spices' },
+        ],
       },
       glassId: 3,
     },
@@ -182,6 +197,36 @@ async function main() {
           { name: 'Gin', amount: 2, unit: 'OUNCE' },
           { name: 'Tonic water', amount: 4, unit: 'OUNCE' },
           { name: 'Lime wheel', amount: 2, unit: 'NONE' },
+        ],
+      },
+      glassId: 5,
+    },
+  });
+
+  await prisma.recipe.create({
+    data: {
+      name: 'Gold Rush',
+      description: '',
+      image: 'gold-rush.png',
+      color: '#F6C65D',
+      difficulty: 'EASY',
+      steps: {
+        create: [
+          {
+            description:
+              'Add bourbon, honey syrup, and lemon juice into an ice-filled shaker',
+          },
+          { description: 'Shake to chill and combine' },
+          { description: 'Strain into rocks glass with ice' },
+          { description: 'Garnish with lemon' },
+        ],
+      },
+      ingredients: {
+        create: [
+          { name: 'Bourbon', amount: 2, unit: 'OUNCE' },
+          { name: 'Lemon juice', amount: 0.75, unit: 'OUNCE' },
+          { name: 'Honey syrup', amount: 0.75, unit: 'OUNCE' },
+          { name: 'Lemon twist', amount: 0.75, unit: 'NONE' },
         ],
       },
       glassId: 5,

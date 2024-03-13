@@ -1,12 +1,9 @@
-import localFont from "next/font/local";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Serif } from 'next/font/google';
 
-export const sfPro = localFont({
-  src: "./SF-Pro-Display-Medium.otf",
-  variable: "--font-sf",
-});
-
-export const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
+export const ibmPlexSerif = IBM_Plex_Serif({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-ibm-plex-serif',
+  subsets: ['latin'],
+  display: 'swap',
 });
