@@ -19,7 +19,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
             <span>{ingredient.name}</span>
 
             <span>
-              {ingredient.amount}{' '}
+              {ingredient.amount.toFixed(2)}{' '}
               {getUnitLabel(ingredient.amount, ingredient.unit)}
             </span>
           </li>
@@ -29,7 +29,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
   );
 }
 
-const getUnitLabel = (amount: number, unit: Unit) => {
+const getUnitLabel = (amount: any, unit: Unit) => {
   let label = unitsMap[unit].name;
 
   // makes units plural
