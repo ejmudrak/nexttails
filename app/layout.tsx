@@ -1,6 +1,5 @@
 import './globals.css';
-import classNames from 'classnames';
-import { ibmPlexSerif } from './fonts';
+import { ibmPlexSerif } from '../public/fonts';
 
 export const metadata = {
   title: 'NextTails',

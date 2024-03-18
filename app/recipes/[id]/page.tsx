@@ -4,6 +4,7 @@ import Ingredients from '@/components/recipe/ingredients';
 import OutlinedCard from '@/components/recipe/outlined-card';
 import Steps from '@/components/recipe/steps';
 import Tools from '@/components/recipe/tools';
+import Chip from '@/components/shared/chip';
 import { difficultyMap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
 
@@ -15,6 +16,7 @@ const getRecipe = async (recipeId: string) => {
       steps: true,
       glass: true,
       tools: true,
+      tags: true,
     },
   });
 };
@@ -23,7 +25,7 @@ export default async function Recipes({ params }: { params: { id: string } }) {
   const recipe = await getRecipe(params.id);
 
   return (
-    <div className='w-full max-w-xl overflow-y-auto overflow-x-hidden pt-8 md:pt-16'>
+    <div className='w-full max-w-xl overflow-y-auto overflow-x-hidden pt-8 md:overflow-visible md:pt-16'>
       <BackButton href='/' />
 
       {recipe && (
@@ -43,8 +45,16 @@ export default async function Recipes({ params }: { params: { id: string } }) {
               />
             </div>
 
+            <div className='mt-4 flex flex-row flex-wrap items-center gap-2'>
+              {recipe?.tags.map((tag) => (
+                <Chip key={tag.id} label={tag.name} color={recipe.color} />
+              ))}
+            </div>
+
             <Ingredients ingredients={recipe.ingredients} />
+
             {recipe?.tools.length > 0 && <Tools tools={recipe.tools} />}
+
             <Steps steps={recipe.steps} />
           </div>
         </>

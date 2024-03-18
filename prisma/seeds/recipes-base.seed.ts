@@ -206,7 +206,7 @@ export default async function seedBaseRecipes(prisma: PrismaClient) {
             amount: 0.75,
             unit: 'OUNCE',
           },
-          { name: 'Lemon twist', amount: 0.75, unit: 'NONE' },
+          { name: 'Lemon twist', amount: 1, unit: 'NONE' },
         ],
       },
       tags: {

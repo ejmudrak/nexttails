@@ -61,11 +61,11 @@ model Step {
 }
 
 model Ingredient {
-  id       Int    @id @default(autoincrement())
-  name     String @db.VarChar(255)
-  amount   Int
+  id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(255)
+  amount   Decimal
   unit     Unit
-  recipe   Recipe @relation(fields: [recipeId], references: [id])
+  recipe   Recipe  @relation(fields: [recipeId], references: [id])
   recipeId Int
 
   @@unique([name, amount, recipeId])

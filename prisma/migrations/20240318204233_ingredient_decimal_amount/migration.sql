@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Ingredient" ALTER COLUMN "amount" SET DATA TYPE DECIMAL(65,30);
