@@ -16,7 +16,11 @@ export default function NavBar() {
         } z-30 transition-all`}
       >
         <div className='mx-5 flex h-16 w-full max-w-screen-xl items-center justify-between'>
-          <Link href='/' className='flex items-center text-3xl font-bold'>
+          <Link
+            href='/'
+            className='flex items-center text-3xl font-bold'
+            aria-label='navigate to home page'
+          >
             <p>Cocktails</p>
           </Link>
         </div>

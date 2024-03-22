@@ -7,12 +7,16 @@ export default function Chip({
   variant?: 'outlined' | 'filled';
   color?: string;
 }) {
-  const variantStyles =
-    variant === 'outlined'
-      ? `border border-[${color}] bg-white`
-      : `bg-[${color}] text-white`;
-
   return (
-    <div className={`rounded-full px-4 py-1 ${variantStyles}`}>{label}</div>
+    <div
+      className={`rounded-full px-4 py-1 ${variant === 'outlined' && 'border'}`}
+      style={{
+        backgroundColor: variant === 'outlined' ? 'white' : color,
+        borderColor: variant === 'outlined' ? color : 'none',
+        color: 'black',
+      }}
+    >
+      {label}
+    </div>
   );
 }

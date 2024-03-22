@@ -16,7 +16,7 @@ export default function Header({ image, color }: HeaderProps) {
       />
 
       <Image
-        className='relative bottom-6 m-auto'
+        className='relative bottom-6 z-20 m-auto'
         alt='cocktail'
         src={`/${image}`}
         width={280}

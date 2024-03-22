@@ -24,7 +24,11 @@ export default async function Home() {
       <div className='z-10 mt-4 w-full max-w-xl'>
         <div className='flex flex-row flex-wrap gap-5 p-6'>
           {recipes.map((recipe) => (
-            <Link key={recipe.id} href={`recipes/${recipe.id}`}>
+            <Link
+              key={recipe.id}
+              href={`recipes/${recipe.id}`}
+              aria-label={`navigate to recipe for ${recipe.name}`}
+            >
               <Card
                 title={recipe.name}
                 description={`${difficultyMap[recipe.difficulty]} • ${

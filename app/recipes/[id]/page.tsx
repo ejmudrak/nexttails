@@ -7,6 +7,7 @@ import Tools from '@/components/recipe/tools';
 import Chip from '@/components/shared/chip';
 import { difficultyMap } from '@/lib/constants';
 import prisma from '@/lib/prisma';
+import Image from 'next/image';
 
 const getRecipe = async (recipeId: string) => {
   return await prisma.recipe.findFirst({
@@ -30,6 +31,25 @@ export default async function Recipes({ params }: { params: { id: string } }) {
 
       {recipe && (
         <>
+          {/* <div className='absolute left-4 top-20 z-10'>
+            <Image
+              src='/svg/blob1.svg'
+              alt=''
+              width={80}
+              height={80}
+              className='cursor-pointer'
+            />
+          </div>
+          <div className='absolute left-10 top-40 z-10'>
+            <Image
+              src='/svg/blob2.svg'
+              alt=''
+              width={80}
+              height={80}
+              className='cursor-pointer'
+            />
+          </div> */}
+
           {recipe.image && <Header image={recipe.image} color={recipe.color} />}
 
           <div className='relative h-32 rounded-t-[48px] bg-slate-100 px-12 py-4'>
@@ -37,18 +57,23 @@ export default async function Recipes({ params }: { params: { id: string } }) {
           </div>
 
           <div className='relative top-[-68px] rounded-t-[48px] bg-white px-12 pb-[200px] pt-6'>
-            <div className='flex flex-row items-center gap-4'>
+            <div className='flex flex-row flex-wrap items-center gap-2'>
+              {recipe?.tags.map((tag) => (
+                <Chip
+                  key={tag.id}
+                  label={tag.name}
+                  color={recipe.color}
+                  variant='filled'
+                />
+              ))}
+            </div>
+
+            <div className='mt-4 flex flex-row items-center gap-4'>
               <OutlinedCard title='Glass' label={recipe.glass.name} />
               <OutlinedCard
                 title='Difficulty'
                 label={difficultyMap[recipe.difficulty]}
               />
-            </div>
-
-            <div className='mt-4 flex flex-row flex-wrap items-center gap-2'>
-              {recipe?.tags.map((tag) => (
-                <Chip key={tag.id} label={tag.name} color={recipe.color} />
-              ))}
             </div>
 
             <Ingredients ingredients={recipe.ingredients} />

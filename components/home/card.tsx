@@ -20,7 +20,7 @@ export default function Card({ title, description, image, color }: CardProps) {
 
         {image && (
           <Image
-            alt='cocktail'
+            alt={`image of ${title} cocktail`}
             src={`/${image}`}
             width={120}
             height={120}

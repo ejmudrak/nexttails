@@ -1,5 +1,6 @@
 import { unitsMap } from '@/lib/constants';
 import { Ingredient, Unit } from '@prisma/client';
+import { Decimal } from '@prisma/client/runtime';
 
 export interface IngredientsProps {
   ingredients: Ingredient[];
@@ -19,7 +20,7 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
             <span>{ingredient.name}</span>
 
             <span>
-              {ingredient.amount.toFixed(2)}{' '}
+              {getAmountLabel(ingredient.amount)}{' '}
               {getUnitLabel(ingredient.amount, ingredient.unit)}
             </span>
           </li>
@@ -28,6 +29,10 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
     </>
   );
 }
+
+const getAmountLabel = (amount: Decimal) => {
+  return amount.toFixed(2).toString().replace('.00', '');
+};
 
 const getUnitLabel = (amount: any, unit: Unit) => {
   let label = unitsMap[unit].name;
