@@ -1,3 +1,5 @@
+import { isColorDark } from '@/lib/utils';
+
 export default function Chip({
   label,
   variant = 'outlined',
@@ -13,7 +15,7 @@ export default function Chip({
       style={{
         backgroundColor: variant === 'outlined' ? 'white' : color,
         borderColor: variant === 'outlined' ? color : 'none',
-        color: 'black',
+        color: variant === 'filled' && isColorDark(color) ? 'white' : 'black',
       }}
     >
       {label}
